@@ -1,0 +1,240 @@
+<Window x:Class="PrimeWidgetSetup.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Setup - PrimeWidget"
+        Width="540" Height="410"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#FFFFFF"
+        Icon="primewidget.png"
+        FontFamily="Segoe UI, -apple-system, sans-serif"
+        FontSize="12"
+        Foreground="#000000">
+
+    <Window.Resources>
+        <!-- Classic Windows Wizard Button Style -->
+        <Style x:Key="WizardButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#E1E1E1"/>
+            <Setter Property="BorderBrush" Value="#ADADAD"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Foreground" Value="#000000"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="MinWidth" Value="78"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Padding" Value="12,2"/>
+            <Setter Property="Margin" Value="4,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="b" Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="b" Property="Background" Value="#E5F1FB"/>
+                                <Setter TargetName="b" Property="BorderBrush" Value="#0078D7"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="b" Property="Background" Value="#CCE4F7"/>
+                                <Setter TargetName="b" Property="BorderBrush" Value="#005499"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="#A0A0A0"/>
+                                <Setter TargetName="b" Property="Background" Value="#F4F4F4"/>
+                                <Setter TargetName="b" Property="BorderBrush" Value="#DCDCDC"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DefaultWizardButtonStyle" TargetType="Button" BasedOn="{StaticResource WizardButtonStyle}">
+            <Setter Property="BorderBrush" Value="#0078D7"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="#FFFFFF">
+        <Grid.RowDefinitions>
+            <!-- Top Header (pages 1-4) -->
+            <RowDefinition Height="Auto"/>
+            <!-- Main Content Area -->
+            <RowDefinition Height="*"/>
+            <!-- Bottom Buttons Bar -->
+            <RowDefinition Height="46"/>
+        </Grid.RowDefinitions>
+
+        <!-- 1. Top Header Strip (Visible on pages 1, 2, 3, 4) -->
+        <Border x:Name="TopHeaderBanner" Grid.Row="0" Background="#FFFFFF" BorderBrush="#D9D9D9" BorderThickness="0,0,0,1" Height="58" Visibility="Collapsed">
+            <Grid Margin="18,8,16,8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock x:Name="TxtHeaderTitle" Text="Select Destination Location" FontSize="12" FontWeight="Bold" Foreground="#000000"/>
+                    <TextBlock x:Name="TxtHeaderSubtitle" Text="Where should PrimeWidget be installed?" FontSize="11" Foreground="#444444" Margin="12,2,0,0"/>
+                </StackPanel>
+                <Image Grid.Column="1" Source="primewidget.png" Width="40" Height="40" VerticalAlignment="Center" RenderOptions.BitmapScalingMode="HighQuality"/>
+            </Grid>
+        </Border>
+
+        <!-- 2. Wizard Body Content Area -->
+        <Grid Grid.Row="1">
+            <!-- PAGE 0: Welcome Page -->
+            <Grid x:Name="PageWelcome" Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="164"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Sidebar Banner -->
+                <Border Grid.Column="0" Background="#F0F4F8" BorderBrush="#D9D9D9" BorderThickness="0,0,1,0">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12">
+                        <Border Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="16" Padding="12" Margin="0,0,0,14" HorizontalAlignment="Center">
+                            <Image Source="primewidget.png" Width="72" Height="72" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Border>
+                        <TextBlock Text="PrimeWidget" FontSize="15" FontWeight="Bold" Foreground="#1E293B" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Desktop Widget" FontSize="11" Foreground="#64748B" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Right Content -->
+                <StackPanel Grid.Column="1" Margin="24,20,24,16" VerticalAlignment="Top">
+                    <TextBlock Text="Welcome to the PrimeWidget Setup Wizard" FontSize="15" FontWeight="Bold" Foreground="#111827" TextWrapping="Wrap" Margin="0,0,0,14"/>
+                    <TextBlock FontSize="12" LineHeight="18" TextWrapping="Wrap" Foreground="#374151">
+                        This will install PrimeWidget 1.0.0 on your computer.
+                        <LineBreak/><LineBreak/>
+                        PrimeWidget provides a high-precision analog clock dial, digital time display, and authentic dual Ethiopian (ዓ.ም.) and Gregorian calendars directly on your desktop.
+                        <LineBreak/><LineBreak/>
+                        It is recommended that you close all other applications before continuing.
+                        <LineBreak/><LineBreak/>
+                        Click Next to continue, or Cancel to exit Setup.
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <!-- PAGE 1: Select Destination Location -->
+            <Grid x:Name="PageLocation" Visibility="Collapsed" Margin="24,16,24,12">
+                <StackPanel>
+                    <TextBlock Text="Setup will install PrimeWidget into the following folder." Margin="0,0,0,8" Foreground="#374151"/>
+                    <TextBlock Text="To continue, click Next. If you would like to select a different folder, click Browse." Margin="0,0,0,14" Foreground="#374151"/>
+
+                    <!-- Folder Selection Box -->
+                    <Border Background="#F9FAFB" BorderBrush="#D1D5DB" BorderThickness="1" CornerRadius="2" Padding="12,14" Margin="0,0,0,16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox x:Name="TxtInstallPath" Grid.Column="0" Background="#FFFFFF" BorderBrush="#ADADAD" BorderThickness="1"
+                                     FontSize="12" Padding="6,3" VerticalAlignment="Center" IsReadOnly="True"/>
+                            <Button Grid.Column="2" Content="Browse..." Style="{StaticResource WizardButtonStyle}" Click="OnBrowseClick"/>
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Text="At least 15.0 MB of free disk space is required." Foreground="#6B7280" FontSize="11" Margin="2,0,0,0"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- PAGE 2: Select Additional Tasks -->
+            <Grid x:Name="PageTasks" Visibility="Collapsed" Margin="24,16,24,12">
+                <StackPanel>
+                    <TextBlock Text="Select the additional tasks you would like Setup to perform while installing PrimeWidget, then click Next."
+                               TextWrapping="Wrap" Margin="0,0,0,14" Foreground="#374151"/>
+
+                    <TextBlock Text="Additional shortcuts:" FontWeight="SemiBold" Foreground="#111827" Margin="0,0,0,6"/>
+                    <CheckBox x:Name="ChkDesktopShortcut" Content="Create a &amp;desktop shortcut" IsChecked="True" Margin="14,0,0,6"/>
+                    <CheckBox x:Name="ChkStartMenuShortcut" Content="Create a &amp;Start Menu shortcut" IsChecked="True" Margin="14,0,0,14"/>
+
+                    <TextBlock Text="Startup behavior:" FontWeight="SemiBold" Foreground="#111827" Margin="0,0,0,6"/>
+                    <CheckBox x:Name="ChkAutostart" Content="&amp;Start PrimeWidget automatically when Windows starts" IsChecked="True" Margin="14,0,0,6"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- PAGE 3: Ready to Install -->
+            <Grid x:Name="PageReady" Visibility="Collapsed" Margin="24,14,24,10">
+                <StackPanel>
+                    <TextBlock Text="Click Install to continue with the installation, or click Back if you want to review or change any settings."
+                               TextWrapping="Wrap" Margin="0,0,0,10" Foreground="#374151"/>
+
+                    <!-- Summary Box -->
+                    <Border Background="#F9FAFB" BorderBrush="#D1D5DB" BorderThickness="1" CornerRadius="2" Padding="12,10" Height="150">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <TextBlock Text="Destination location:" FontWeight="SemiBold" Foreground="#111827"/>
+                                <TextBlock x:Name="TxtSummaryLocation" Text="C:\Program Files\..." Foreground="#4B5563" Margin="14,2,0,8"/>
+
+                                <TextBlock Text="Additional tasks:" FontWeight="SemiBold" Foreground="#111827"/>
+                                <TextBlock x:Name="TxtSummaryTasks" Text="• Create desktop shortcut&#x0a;• Create Start Menu shortcut&#x0a;• Start with Windows"
+                                           Foreground="#4B5563" Margin="14,2,0,0"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+                </StackPanel>
+            </Grid>
+
+            <!-- PAGE 4: Installing -->
+            <Grid x:Name="PageInstalling" Visibility="Collapsed" Margin="24,24,24,16">
+                <StackPanel VerticalAlignment="Top">
+                    <TextBlock Text="Installing" FontSize="14" FontWeight="Bold" Margin="0,0,0,6" Foreground="#111827"/>
+                    <TextBlock Text="Please wait while Setup installs PrimeWidget on your computer." Margin="0,0,0,16" Foreground="#4B5563"/>
+
+                    <TextBlock x:Name="TxtStatus" Text="Extracting files..." Margin="0,0,0,6" Foreground="#374151"/>
+                    <ProgressBar x:Name="InstallProgressBar" Height="18" Minimum="0" Maximum="100" Value="20"
+                                 Background="#E5E7EB" Foreground="#0078D7" BorderBrush="#D1D5DB" BorderThickness="1" Margin="0,0,0,10"/>
+                </StackPanel>
+            </Grid>
+
+            <!-- PAGE 5: Finished -->
+            <Grid x:Name="PageFinished" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="164"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Left Sidebar Banner -->
+                <Border Grid.Column="0" Background="#F0F4F8" BorderBrush="#D9D9D9" BorderThickness="0,0,1,0">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Margin="12">
+                        <Border Background="#FFFFFF" BorderBrush="#E2E8F0" BorderThickness="1" CornerRadius="16" Padding="12" Margin="0,0,0,14" HorizontalAlignment="Center">
+                            <Image Source="primewidget.png" Width="72" Height="72" RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Border>
+                        <TextBlock Text="PrimeWidget" FontSize="15" FontWeight="Bold" Foreground="#1E293B" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Ready to Use" FontSize="11" Foreground="#16A34A" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,2,0,0"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Right Content -->
+                <StackPanel Grid.Column="1" Margin="24,20,24,16" VerticalAlignment="Top">
+                    <TextBlock Text="Completing the PrimeWidget Setup Wizard" FontSize="15" FontWeight="Bold" Foreground="#111827" TextWrapping="Wrap" Margin="0,0,0,14"/>
+                    <TextBlock FontSize="12" LineHeight="18" TextWrapping="Wrap" Foreground="#374151">
+                        Setup has finished installing PrimeWidget on your computer.
+                        <LineBreak/><LineBreak/>
+                        The application may be launched by selecting the installed shortcuts.
+                        <LineBreak/><LineBreak/>
+                        Click Finish to exit Setup.
+                    </TextBlock>
+                    <CheckBox x:Name="ChkLaunchAfter" Content="&amp;Launch PrimeWidget" IsChecked="True" Margin="0,18,0,0" FontWeight="Medium"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+        <!-- 3. Bottom Button Bar (Classic Inno/Node style light bar) -->
+        <Border Grid.Row="2" Background="#F0F0F0" BorderBrush="#D9D9D9" BorderThickness="0,1,0,0">
+            <Grid Margin="12,0,12,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button x:Name="BtnBack" Content="&lt; &amp;Back" Style="{StaticResource WizardButtonStyle}" Click="OnBackClick" IsEnabled="False"/>
+                    <Button x:Name="BtnNext" Content="&amp;Next &gt;" Style="{StaticResource DefaultWizardButtonStyle}" Click="OnNextClick"/>
+                    <Button x:Name="BtnCancel" Content="Cancel" Style="{StaticResource WizardButtonStyle}" Margin="12,0,0,0" Click="OnCancelClick"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

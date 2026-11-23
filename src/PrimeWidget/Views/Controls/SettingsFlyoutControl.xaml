@@ -1,0 +1,185 @@
+<UserControl x:Class="PrimeWidget.Views.Controls.SettingsFlyoutControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:models="clr-namespace:PrimeWidget.Models"
+             xmlns:helpers="clr-namespace:PrimeWidget.Helpers"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Width="340">
+    <UserControl.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVis"/>
+        
+        <Style x:Key="OptionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{DynamicResource WidgetCardBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource WidgetBorderBrush}"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="9,5"/>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="FontSize" Value="11.5"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="HeaderLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="11.5"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="Margin" Value="0,8,0,4"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border Background="{DynamicResource WidgetBackgroundBrush}"
+            BorderBrush="{DynamicResource WidgetBorderBrush}"
+            BorderThickness="1"
+            CornerRadius="18"
+            Padding="16,14">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" MaxHeight="400">
+            <StackPanel Orientation="Vertical">
+                <!-- Header with Close button -->
+                <Grid Margin="0,0,0,8">
+                    <TextBlock Text="Widget Settings"
+                               FontSize="15"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource TextPrimaryBrush}"
+                               VerticalAlignment="Center"/>
+                    <Button Command="{Binding ToggleSettingsCommand}"
+                            HorizontalAlignment="Right"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="{DynamicResource TextSecondaryBrush}"
+                            FontSize="14"
+                            FontWeight="Bold"
+                            Cursor="Hand"
+                            Padding="6,2"
+                            Content="✕"/>
+                </Grid>
+
+                <!-- Analog Dial Style (Including Ethiopian Option!) -->
+                <TextBlock Text="Analog Dial Style" Style="{StaticResource HeaderLabelStyle}"/>
+                <WrapPanel Orientation="Horizontal">
+                    <Button Content="Minimalist Ticks"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnMinimalistDialClick"/>
+                    <Button Content="🇪🇹 Ethiopian Ge'ez (፲፪, ፫, ፮, ፱)"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnEthiopianDialClick"/>
+                    <Button Content="Roman (XII, III, VI, IX)"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnRomanDialClick"/>
+                    <Button Content="Standard (12, 3, 6, 9)"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnModernDigitsClick"/>
+                </WrapPanel>
+
+                <!-- Theme: Light / Dark -->
+                <TextBlock Text="Visual Theme" Style="{StaticResource HeaderLabelStyle}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="☀️ Light Glass"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnLightThemeClick"
+                            Margin="0,0,6,0"/>
+                    <Button Content="🌙 Dark Glass"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnDarkThemeClick"/>
+                </StackPanel>
+
+                <!-- Accent Color Palette -->
+                <TextBlock Text="Accent Color" Style="{StaticResource HeaderLabelStyle}"/>
+                <WrapPanel Orientation="Horizontal" Margin="0,2,0,0">
+                    <Button Content="Coral Red" Background="#5F1D1D" BorderBrush="#EF4444" Foreground="#FCA5A5"
+                            Style="{StaticResource OptionButtonStyle}" Click="OnRedAccentClick"/>
+                    <Button Content="Cyan" Background="#164E63" BorderBrush="#06B6D4" Foreground="#22D3EE"
+                            Style="{StaticResource OptionButtonStyle}" Click="OnCyanAccentClick"/>
+                    <Button Content="Emerald" Background="#064E3B" BorderBrush="#10B981" Foreground="#34D399"
+                            Style="{StaticResource OptionButtonStyle}" Click="OnEmeraldAccentClick"/>
+                    <Button Content="Gold" Background="#78350F" BorderBrush="#F59E0B" Foreground="#FBBF24"
+                            Style="{StaticResource OptionButtonStyle}" Click="OnGoldAccentClick"/>
+                    <Button Content="Purple" Background="#581C87" BorderBrush="#A855F7" Foreground="#C084FC"
+                            Style="{StaticResource OptionButtonStyle}" Click="OnPurpleAccentClick"/>
+                </WrapPanel>
+
+                <!-- Background Opacity Slider -->
+                <Grid Margin="0,8,0,0">
+                    <TextBlock Text="Frosted Glass Opacity" Style="{StaticResource HeaderLabelStyle}" Margin="0,0,0,0"/>
+                    <TextBlock Text="{Binding Opacity, StringFormat='{}{0:P0}'}"
+                               HorizontalAlignment="Right"
+                               FontSize="11"
+                               Foreground="{DynamicResource AccentBrush}"
+                               VerticalAlignment="Center"/>
+                </Grid>
+                <Slider Minimum="0.30" Maximum="1.0" Value="{Binding Opacity, Mode=TwoWay}"
+                        TickFrequency="0.05" IsSnapToTickEnabled="False" Margin="0,4,0,0"/>
+
+                <!-- Calendar Mode -->
+                <TextBlock Text="Calendar System" Style="{StaticResource HeaderLabelStyle}"/>
+                <WrapPanel Orientation="Horizontal">
+                    <Button Content="Dual (Gregorian + Ethiopian)"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnDualCalendarClick"/>
+                    <Button Content="Ethiopian (ዓ.ም.)"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnEthiopianCalendarClick"/>
+                    <Button Content="Gregorian Only"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnGregorianCalendarClick"/>
+                </WrapPanel>
+
+                <!-- Ethiopian Script Mode -->
+                <TextBlock Text="Ethiopian Script Language" Style="{StaticResource HeaderLabelStyle}"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="ፊደል (Amharic / Ge'ez)"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnAmharicScriptClick"
+                            Margin="0,0,6,0"/>
+                    <Button Content="English Transliteration"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnEnglishScriptClick"/>
+                </StackPanel>
+
+                <!-- Time Format -->
+                <TextBlock Text="Time Format" Style="{StaticResource HeaderLabelStyle}"/>
+                <WrapPanel Orientation="Horizontal">
+                    <Button Content="12-Hour (AM/PM)"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="On12HourClick"/>
+                    <Button Content="24-Hour"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="On24HourClick"/>
+                    <Button Content="Ethiopian 12-Hour (ከቀኑ/ከምሽቱ)"
+                            Style="{StaticResource OptionButtonStyle}"
+                            Click="OnEth12HourClick"/>
+                </WrapPanel>
+
+                <!-- Second Hand Sweep & Display -->
+                <TextBlock Text="Clock Hand Behavior" Style="{StaticResource HeaderLabelStyle}"/>
+                <CheckBox Content="Smooth Continuous Second Hand"
+                          IsChecked="{Binding SmoothSweepSecondHand, Mode=TwoWay}"
+                          Foreground="{DynamicResource TextSecondaryBrush}"
+                          Margin="0,4,0,4"/>
+                <CheckBox Content="Show Second Hand"
+                          IsChecked="{Binding ShowSeconds, Mode=TwoWay}"
+                          Foreground="{DynamicResource TextSecondaryBrush}"
+                          Margin="0,2,0,4"/>
+                <CheckBox Content="Keep Widget Always on Top"
+                          IsChecked="{Binding AlwaysOnTop, Mode=TwoWay}"
+                          Foreground="{DynamicResource TextSecondaryBrush}"
+                          Margin="0,2,0,8"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Border>
+</UserControl>

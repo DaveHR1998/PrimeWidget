@@ -1,0 +1,50 @@
+# =====================================================================
+# PrimeWidget Git Ignore Configuration
+# =====================================================================
+
+# 1. Build & Compilation Outputs
+**/bin/
+**/obj/
+publish/
+dist/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# 2. Installer Generated Payloads & Debug Symbols
+installer/payload.zip
+*.pdb
+
+# 3. Local .NET CLI & Package Cache
+.dotnet/
+.nuget/
+project.lock.json
+project.assets.json
+
+# 4. Security & Private Keys (Keep public .cer, ignore private keys)
+*.pfx
+*.p12
+*.key
+
+# 5. IDE & Editor Specific Folders
+.vs/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+*.DotSettings.user
+
+# 6. Windows OS Generated Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# 7. Test Results & Crash Dumps
+TestResults/
+*.dmp
+*.crash
+
+# 8. Local Developer Architecture Guide
+README_LEARN.md

@@ -1,0 +1,60 @@
+<Application x:Class="PrimeWidget.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PrimeWidget"
+             xmlns:helpers="clr-namespace:PrimeWidget.Helpers"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <helpers:BoolToVisibilityConverter x:Key="BoolToVis"/>
+        <sys:Double x:Key="WidgetShadowOpacity">0.22</sys:Double>
+
+        <!-- Fallback Default Brushes (Overwritten by ThemeManager on launch) -->
+        <SolidColorBrush x:Key="WidgetBackgroundBrush" Color="#E00F1420"/>
+        <SolidColorBrush x:Key="WidgetCardBrush" Color="#25FFFFFF"/>
+        <SolidColorBrush x:Key="WidgetCardHoverBrush" Color="#45FFFFFF"/>
+        <SolidColorBrush x:Key="WidgetBorderBrush" Color="#30FFFFFF"/>
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#F8FAFC"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#94A3B8"/>
+        <SolidColorBrush x:Key="TextMutedBrush" Color="#64748B"/>
+        <Color x:Key="AccentColor">#06B6D4</Color>
+        <SolidColorBrush x:Key="AccentBrush" Color="#06B6D4"/>
+        <SolidColorBrush x:Key="AccentGlowBrush" Color="#4506B6D4"/>
+        <SolidColorBrush x:Key="ClockFaceBrush" Color="#DC0B0F1A"/>
+        <SolidColorBrush x:Key="ClockBorderBrush" Color="#50FFFFFF"/>
+        <SolidColorBrush x:Key="ClockTicksBrush" Color="#A094A3B8"/>
+        <SolidColorBrush x:Key="ClockHourHandBrush" Color="#F8FAFC"/>
+        <SolidColorBrush x:Key="ClockMinuteHandBrush" Color="#CBD5E1"/>
+        <SolidColorBrush x:Key="SecondHandBrush" Color="#06B6D4"/>
+        <SolidColorBrush x:Key="SubtleGlowBrush" Color="#19FFFFFF"/>
+
+        <!-- Header Tool Button Style -->
+        <Style x:Key="HeaderToolButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+            <Setter Property="Padding" Value="6,4"/>
+            <Setter Property="Margin" Value="2,0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="{DynamicResource WidgetCardHoverBrush}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>
