@@ -11,7 +11,8 @@ $publishDir = Join-Path $root "publish"
 if (Test-Path $publishDir) {
     Remove-Item $publishDir -Recurse -Force -ErrorAction SilentlyContinue
 }
-dotnet publish $appProj -c Release -r win-x64 --self-contained true --no-restore -o $publishDir
+dotnet publish $appProj -c Release --no-self-contained --no-restore -o $publishDir
+Get-ChildItem -Path $publishDir -Filter "*.pdb" -ErrorAction SilentlyContinue | Remove-Item -Force
 
 Write-Output "=== 2. Loading Code Signing Certificate ==="
 $pfxPath = Join-Path $root "PrimeWidgetCert.pfx"
@@ -63,12 +64,11 @@ if (Test-Path $distDir) {
     New-Item -ItemType Directory -Path $distDir | Out-Null
 }
 
-dotnet publish $installerProj -c Release -r win-x64 --self-contained true --no-restore -o $distDir
+dotnet publish $installerProj -c Release -r win-x64 --no-self-contained --no-restore -o $distDir
 $setupExe = Join-Path $distDir "PrimeWidget-Setup.exe"
 
 # Remove debug symbols from dist
 Get-ChildItem -Path $distDir -Filter "*.pdb" -ErrorAction SilentlyContinue | Remove-Item -Force
-Start-Sleep -Milliseconds 500
 
 Write-Output "=== 6. Signing dist\PrimeWidget-Setup.exe ==="
 if (Test-Path $setupExe) {

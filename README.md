@@ -1,13 +1,23 @@
-# ⏱️ PrimeWidget for Windows
+<p align="center">
+  <img src="src/PrimeWidget/Resources/primewidget.png" alt="PrimeWidget Logo" width="128" height="128" />
+</p>
 
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-blue.svg)](https://microsoft.com/windows)
-[![Framework](https://img.shields.io/badge/Framework-.NET%208.0%20WPF-purple.svg)](https://dotnet.microsoft.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Zero Dependencies](https://img.shields.io/badge/Dependencies-0%20Third%20Party-brightgreen.svg)](#architecture)
+<h1 align="center">PrimeWidget for Windows</h1>
 
-A native, high-performance, glassmorphic desktop widget application for Windows. Features simultaneous **Gregorian & Ethiopian (ዓ.ም.) calendars**, customizable **Analog & Digital clocks**, **World Clocks**, native **Windows 11 Acrylic & Mica backdrops**, a built-in **Focus / Pomodoro timer**, and **acoustic hourly chimes**.
+<p align="center">
+  <a href="https://microsoft.com/windows"><img src="https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-blue.svg" alt="Platform" /></a>
+  <a href="https://dotnet.microsoft.com/"><img src="https://img.shields.io/badge/Framework-.NET%208.0%20WPF-purple.svg" alt="Framework" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT" /></a>
+  <a href="#architecture"><img src="https://img.shields.io/badge/Dependencies-0%20Third%20Party-brightgreen.svg" alt="Zero Dependencies" /></a>
+</p>
 
-Built with a **zero-dependency philosophy**: 100% pure C# / WPF and native Win32/DWM APIs.
+<p align="center">
+  A native, high-performance, glassmorphic desktop widget application for Windows. Features simultaneous <b>Gregorian &amp; Ethiopian (ዓ.ም.) calendars</b>, customizable <b>Analog &amp; Digital clocks</b>, <b>World Clocks</b>, native <b>Windows 11 Acrylic &amp; Mica backdrops</b>, a built-in <b>Focus / Pomodoro timer</b>, and <b>acoustic hourly chimes</b>.
+</p>
+
+<p align="center">
+  <i>Built with a <b>zero-dependency philosophy</b>: 100% pure C# / WPF and native Win32/DWM APIs.</i>
+</p>
 
 ---
 
